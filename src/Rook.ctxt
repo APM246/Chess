@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Rook
+comment1.params=position\ isWhite
+comment1.target=Rook(int[],\ boolean)
+comment2.params=x\ y
+comment2.target=void\ move(int,\ int)
+comment3.params=x\ y
+comment3.target=boolean\ legalMove(int,\ int)
+comment4.params=
+comment4.target=void\ promote()
+comment5.params=
+comment5.target=int[]\ getPosition()
+comment6.params=
+comment6.target=java.lang.String\ getName()
+numComments=7
