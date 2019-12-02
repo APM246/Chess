@@ -18,7 +18,7 @@ public class Board
      */
     public Board()
     {
-        pieces = new ArrayList();
+        pieces = new ArrayList<Piece>();
         //sets up pawns
         for (int i = 0; i < 8; i++)
         {
@@ -105,7 +105,7 @@ public class Board
     {
         if (king.getName() != "king") throw new IllegalArgumentException();
 
-        ArrayList<int[]> unchecked = new ArrayList();
+        ArrayList<int[]> unchecked = new ArrayList<int[]>();
         int i = king.getPosition()[0]- 1;
         int imax = i + 3;
         int j = king.getPosition()[1] - 1;
