@@ -37,8 +37,8 @@ public abstract class Piece
         boardforPieces = board;
         bi = null;
         try {
-            if (isWhite) bi = ImageIO.read(new File("uniformchesspieces\\" + name + "white." + format));
-            else bi = ImageIO.read(new File("uniformchesspieces\\" + name + "black." + format));
+            if (isWhite) bi = ImageIO.read(new File("src\\uniformchesspieces\\" + name + "white." + format));
+            else bi = ImageIO.read(new File("src\\uniformchesspieces\\" + name + "black." + format));
         } catch (Exception e) {
         }
     }

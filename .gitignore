@@ -1,0 +1,5 @@
+*.ctxt
+*.class
+out\
+.idea/*
+out/*

@@ -184,7 +184,7 @@ public class Viewer implements MouseListener
                 updateDisplay();
             }
 
-            // AI makes its move
+            /*// AI makes its move
             try 
             {
                 Thread.sleep(3000); // make AI seem more realistic by taking several seconds to make move 
@@ -197,7 +197,7 @@ public class Viewer implements MouseListener
             catch (InterruptedException ie)
             {
                 ie.printStackTrace();
-            }
+            }*/
         }
     }
 
