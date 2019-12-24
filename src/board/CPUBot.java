@@ -50,15 +50,16 @@ public class CPUBot
             }
         }   
     }
-    
+
     private void calculateRandomCPUPiece()
     {
         Piece result;
         do
         {
             int random_number = (((int) (Math.random()*16))%CPUpieces.size());
-             result = CPUpieces.get(random_number);
-             result.calculateAvailableMoves();
+            //random_number = 11; // REMOVE
+            result = CPUpieces.get(random_number);
+            result.calculateAvailableMoves();
         }
         while (result.getAvailableMoves().size() == 0);
        

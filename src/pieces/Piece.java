@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import board.*;
 
 /**
@@ -67,12 +69,22 @@ public abstract class Piece
         {
             for (int j = 0; j < numColumns; j++)
             {
-                if (islegalMove(i,j))
+                if (islegalMove(i,j) && !containsPosition(i, j))
                 {
                     availableMoves.add(new int[] {i,j});
                 }
             }
         }
+    }
+
+    private boolean containsPosition(int i, int j)
+    {
+        for (int[] position: availableMoves)
+        {
+            if (Arrays.equals(new int[] {i,j}, position)) return true;
+        }
+
+        return false;
     }
 
     public String getName()

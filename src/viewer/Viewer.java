@@ -5,6 +5,8 @@ import java.awt.event.MouseListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.lang.System;
+import java.util.Arrays;
+
 import pieces.*;
 import board.*;
 
@@ -194,7 +196,7 @@ public class Viewer implements MouseListener
             }
 
             // AI makes its move
-            try 
+            try
             {
                 //Thread.sleep(1000); // make AI seem more realistic by taking several seconds to make move
                 int[] new_position = bot.getRandomCPUMove();
@@ -207,6 +209,7 @@ public class Viewer implements MouseListener
                 else if (stationaryPiece.getisWhite() != movingPiece.getisWhite())
                 {
                     movingPiece.setPosition(new_position[0], new_position[1]);
+                    board.remove(stationaryPiece);
                 }
                 else
                 {
@@ -223,7 +226,6 @@ public class Viewer implements MouseListener
             }
         }
     }
-
 
     public static void main(String[] args) {
         new Viewer();

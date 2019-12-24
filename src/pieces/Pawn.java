@@ -12,26 +12,26 @@ public class Pawn extends Piece
     // can simplify boardforPieces.occupiedSquare(x,y)
     public boolean islegalMove(int x, int y)
     {
-        if ((position[1] == 1 || position[1] == 6) && Math.abs(position[1] - y) == 2) return true;
+        if ((position[1] == 1 || position[1] == 6) && Math.abs(position[1] - y) == 2 && x == position[0]) return true;
 
         if (position[0] == x + 1 && position[1] == y-1)
         {
-            if (boardforPieces.occupiedSquare(x,y) != null) return true;
+            if (boardforPieces.occupiedSquare(x,y) != null && isWhite) return true;
             else return false;
         }
         if (position[0] == x + 1 && position[1] == y+1)
         {
-            if (boardforPieces.occupiedSquare(x,y) != null) return true;
+            if (boardforPieces.occupiedSquare(x,y) != null && !isWhite) return true;
             else return false;
         }
         if (position[0] == x - 1 && position[1] == y-1)
         {
-            if (boardforPieces.occupiedSquare(x,y) != null) return true;
+            if (boardforPieces.occupiedSquare(x,y) != null && isWhite) return true;
             else return false;
         }
         if (position[0] == x - 1 && position[1] == y+1)
         {
-            if (boardforPieces.occupiedSquare(x,y) != null) return true;
+            if (boardforPieces.occupiedSquare(x,y) != null && !isWhite) return true;
             else return false;
         }
         if (position[1] == y-1 && position[0] == x && isWhite && boardforPieces.occupiedSquare(x,y) == null) return true;
