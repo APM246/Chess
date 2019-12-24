@@ -36,11 +36,17 @@ public abstract class Piece
         this.isonBoard = isonBoard;
         boardforPieces = board;
         bi = null;
-        try {
+        try
+        {
             if (isWhite) bi = ImageIO.read(new File("src\\uniformchesspieces\\" + name + "white." + format));
             else bi = ImageIO.read(new File("src\\uniformchesspieces\\" + name + "black." + format));
-        } catch (Exception e) {
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        availableMoves = new ArrayList<>();
     }
 
     public void setPosition(int x, int y)

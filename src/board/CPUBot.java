@@ -19,6 +19,7 @@ public class CPUBot
     {
         this.isWhite = isWhite;
         this.board = board;
+        CPUpieces = new ArrayList<>();
         populateCPUpieces();
     }
 
@@ -55,7 +56,7 @@ public class CPUBot
         Piece result;
         do
         {
-            int random_number = (int) (Math.random()%CPUpieces.size());
+            int random_number = (((int) (Math.random()*16))%CPUpieces.size());
              result = CPUpieces.get(random_number);
              result.calculateAvailableMoves();
         }
@@ -68,8 +69,7 @@ public class CPUBot
     public int[] getRandomCPUMove()
     {
         calculateRandomCPUPiece();
-        int random_number = (int) (Math.random()%movingPiece.getAvailableMoves().size());
+        int random_number = (int) (Math.random()*movingPiece.getAvailableMoves().size());
         return movingPiece.getAvailableMoves().get(random_number);
     }
-
 }

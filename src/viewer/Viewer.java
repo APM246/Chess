@@ -29,19 +29,23 @@ public class Viewer implements MouseListener
     private final int CANVAS_LENGTH = 600;
     private final int BOARD_WIDTH = CANVAS_LENGTH/8;
 
+    // WHEN GAME HAS BEEN COMPLETED
+    private boolean isFinished;
+
     public Viewer()
     {
-        canvas1 = new Canvas("Player1",CANVAS_LENGTH,CANVAS_LENGTH,Color.BLACK);
+        canvas1 = new Canvas("Player",CANVAS_LENGTH,CANVAS_LENGTH,Color.BLACK);
         canvas1.setFont(new Font("Dialog",1,20));
-        canvas2 = new Canvas("Player2",CANVAS_LENGTH,CANVAS_LENGTH+1,Color.BLACK);
-        canvas2.setFont(new Font("Serif",Font.BOLD,18));
+        canvas2 = new Canvas("Bot", CANVAS_LENGTH, CANVAS_LENGTH + 1, Color.BLACK);
+        canvas2.setFont(new Font("Serif", Font.BOLD, 18));
+        canvas2.addMouseListener(this);
         board = new Board();
         width = BOARD_WIDTH;
         displayBoard();
         displayPieces();
         canvas1.addMouseListener(this);
-        canvas2.addMouseListener(this);
-        bot = new CPUBot(false, board);
+        bot = new CPUBot(true, board);
+        isFinished = false;
     }
 
     private void displayBoard()
@@ -112,6 +116,7 @@ public class Viewer implements MouseListener
 
                         canvas1.drawRectangle(0,0,CANVAS_LENGTH , CANVAS_LENGTH ,Color.WHITE);
                         canvas1.drawString("Game finished",CANVAS_LENGTH/2, CANVAS_LENGTH/2, Color.BLUE);
+                        isFinished = true;
                     }
                 }
             }
@@ -129,6 +134,8 @@ public class Viewer implements MouseListener
      */
     public void mousePressed(MouseEvent e)
     {
+        if (isFinished) return;
+
         if (e.getButton() == MouseEvent.BUTTON1)
         {
             int positionX = e.getX() / 75;
@@ -147,6 +154,8 @@ public class Viewer implements MouseListener
 
     public void mouseReleased(MouseEvent e)
     {
+        if (isFinished) return;
+
         if (e.getButton() == MouseEvent.BUTTON1)
         {
             int positionX = e.getX() / 75;
@@ -184,20 +193,34 @@ public class Viewer implements MouseListener
                 updateDisplay();
             }
 
-            /*// AI makes its move
+            // AI makes its move
             try 
             {
-                Thread.sleep(3000); // make AI seem more realistic by taking several seconds to make move 
+                //Thread.sleep(1000); // make AI seem more realistic by taking several seconds to make move
                 int[] new_position = bot.getRandomCPUMove();
                 movingPiece = bot.getMovingPiece();
-                movingPiece.setPosition(new_position[0], new_position[1]);
+                Piece stationaryPiece = board.occupiedSquare(new_position[0], new_position[1]);
+                if (stationaryPiece == null)
+                {
+                    movingPiece.setPosition(new_position[0], new_position[1]);
+                }
+                else if (stationaryPiece.getisWhite() != movingPiece.getisWhite())
+                {
+                    movingPiece.setPosition(new_position[0], new_position[1]);
+                }
+                else
+                {
+                    return; // can't move to spot if occupied by member of same team
+                }
+                updateDisplay();
                 // rewrite getAvailableMoves() in CPUBot to ensure available moves are legal, i.e. moving to empty spot or eliminating opponent only
+                // or make the above code recursive (keep trying until legal move is found)
             }
 
-            catch (InterruptedException ie)
+            catch (Exception ie)
             {
                 ie.printStackTrace();
-            }*/
+            }
         }
     }
 
