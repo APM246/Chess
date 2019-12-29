@@ -14,7 +14,8 @@ public class Bishop extends Piece
      */
     private boolean thereoticallyLegal(int x, int y)
     {
-        if (Math.abs((y-position[1])/(x-position[0])) == 1) return true;
+        if (position[0] == x) return false; // vertical move not possible
+        else if (Math.abs((y-position[1])/(x-position[0])) == 1) return true;
         else return false;
     }
 

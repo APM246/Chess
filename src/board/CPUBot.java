@@ -57,7 +57,6 @@ public class CPUBot
         do
         {
             int random_number = (((int) (Math.random()*16))%CPUpieces.size());
-            //random_number = 11; // REMOVE
             result = CPUpieces.get(random_number);
             result.calculateAvailableMoves();
         }
@@ -67,6 +66,7 @@ public class CPUBot
     }
 
     // From random CPU piece chosen, choose a random legal move (function returns position it will move to)
+    // CHANGE SO THAT IF A KILL IS AVAILABLE GO FOR THAT INSTEAD OF RANDOMLY CHOSEN MOVE
     public int[] getRandomCPUMove()
     {
         calculateRandomCPUPiece();

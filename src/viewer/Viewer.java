@@ -43,8 +43,7 @@ public class Viewer implements MouseListener
         canvas2.addMouseListener(this);
         board = new Board();
         width = BOARD_WIDTH;
-        displayBoard();
-        displayPieces();
+        updateDisplay();
         canvas1.addMouseListener(this);
         bot = new CPUBot(true, board);
         isFinished = false;
@@ -154,6 +153,9 @@ public class Viewer implements MouseListener
         }
     }
 
+    /*
+            King needs to be able to kill other King if checkmate
+     */
     public void mouseReleased(MouseEvent e)
     {
         if (isFinished) return;

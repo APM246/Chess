@@ -54,17 +54,7 @@ public class Board
     public Board(String test)
     {
         pieces = new ArrayList<Piece>();
-        //sets up pawns
-        for (int i = 0; i < 8; i++)
-        {
-           if (i != 3 && i != 4 && i != 5)
-           {
-                pieces.add(new Pawn(new int[]{i, 1}, true, this));
-           }
-        }
 
-        pieces.add(new Pawn(new int[] {4,2}, false, this));
-        pieces.add(new Pawn(new int[] {5,3}, false, this));
         pieces.add(new Rook(new int[] {0,0}, true, this, true));
         pieces.add(new Rook(new int[] {7,0}, true, this, true));
         pieces.add(new Rook(new int[] {2,0}, false, this, true));

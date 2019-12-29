@@ -47,8 +47,6 @@ public abstract class Piece
         {
             e.printStackTrace();
         }
-
-        availableMoves = new ArrayList<>();
     }
 
     public void setPosition(int x, int y)
@@ -65,6 +63,7 @@ public abstract class Piece
     // Used by the CPU bot to randomly pick a move
     public void calculateAvailableMoves()
     {
+        availableMoves = new ArrayList<>();
         for (int i = 0; i < numColumns; i++)
         {
             for (int j = 0; j < numColumns; j++)
