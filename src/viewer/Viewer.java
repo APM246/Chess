@@ -152,10 +152,7 @@ public class Viewer implements MouseListener
             }
         }
     }
-
-    /*
-            King needs to be able to kill other King if checkmate
-     */
+    
     public void mouseReleased(MouseEvent e)
     {
         if (isFinished) return;
@@ -180,7 +177,7 @@ public class Viewer implements MouseListener
                 {
                     if (stationaryPiece.getName() == "king") return;
                 }
-                if (movingPiece.islegalMove(positionX, positionY)) //board.getCurrentPiece().legalMove
+                if (movingPiece.islegalMove(positionX, positionY)) //board.getCurrentPiece().isLegalMove()
                 {
                     if (board.legalPiece(positionX, positionY))
                     {
@@ -198,41 +195,42 @@ public class Viewer implements MouseListener
             }
 
             // AI makes its move
-            try
-            {
-                //Thread.sleep(1000); // make AI seem more realistic by taking several seconds to make move
-                int[] new_position = bot.getRandomCPUMove();
-                movingPiece = bot.getMovingPiece();
-                Piece stationaryPiece = board.occupiedSquare(new_position[0], new_position[1]);
-                if (stationaryPiece == null)
-                {
-                    movingPiece.setPosition(new_position[0], new_position[1]);
-                }
-                else if (stationaryPiece.getisWhite() != movingPiece.getisWhite())
-                {
-                    movingPiece.setPosition(new_position[0], new_position[1]);
-                    board.remove(stationaryPiece);
-                }
-                else
-                {
-                    return; // can't move to spot if occupied by member of same team
-                }
-                updateDisplay();
-                // rewrite getAvailableMoves() in CPUBot to ensure available moves are legal, i.e. moving to empty spot or eliminating opponent only
-                // or make the above code recursive (keep trying until legal move is found)
-            }
-
-            catch (Exception ie)
-            {
-                ie.printStackTrace();
-            }
+          makeAImove();
         }
     }
 
-    public static void main(String[] args) {
+    private void makeAImove()
+    {
+        try
+        {
+            int[] new_position = bot.getRandomCPUMove();
+            movingPiece = bot.getMovingPiece();
+            Piece stationaryPiece = board.occupiedSquare(new_position[0], new_position[1]);
+            if (stationaryPiece == null)
+            {
+                movingPiece.setPosition(new_position[0], new_position[1]);
+            }
+            else if (stationaryPiece.getisWhite() != movingPiece.getisWhite())
+            {
+                movingPiece.setPosition(new_position[0], new_position[1]);
+                board.remove(stationaryPiece);
+            }
+            else
+            {
+                makeAImove(); // can't move to spot if occupied by member of same team so pick another piece/spot
+            }
+            updateDisplay();
+        }
+
+        catch (Exception ie)
+        {
+            ie.printStackTrace();
+        }
+    }
+
+    // implement game loop that calls updateDisplay() frequently
+    public static void main(String[] args)
+    {
         new Viewer();
-        //v.mousePressed(184,98); can't do this because parameter is a MouseEvent. Thus need to create MouseEvent object
-        // with one of its attributes being a relative (not absolute) position of (184,98)
-        //v.mouseReleased(187,170);
     }
 }
