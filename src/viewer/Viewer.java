@@ -52,18 +52,25 @@ public class Viewer implements MouseListener
     private void displayBoard()
     {
 
-        Color colour = new Color(165, 119, 14);
+        Color main_colour = new Color(165, 119, 14);
+        Color alternate_colour = Color.ORANGE;
+        Color current_colour = null;
+        Color buffer = null;
+
         //draws squares
         for (int i = 0; i < 8; i++)
         {
             for (int j = 0; j < 8; j++)
             {
-                if (j%2 != 0) colour = Color.ORANGE;
-                canvas1.drawRectangle(width*j,width*i,width*(j+1),width*(i+1),colour);
-                canvas2.drawRectangle(width*j,width*i,width*(j+1),width*(i+1),colour);
-                colour = new Color(165,119,14);
-            }
+                if (j%2 != 0) current_colour = alternate_colour;
+                else current_colour = main_colour;
 
+                canvas1.drawRectangle(width*j,width*i,width*(j+1),width*(i+1), current_colour);
+                canvas2.drawRectangle(width*j,width*i,width*(j+1),width*(i+1), current_colour);
+            }
+            buffer = main_colour;
+            main_colour = alternate_colour;
+            alternate_colour = buffer;
         }
 
         //draws grid
