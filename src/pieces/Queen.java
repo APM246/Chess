@@ -16,8 +16,7 @@ public class Queen extends Piece
 
     public boolean islegalMove(int x, int y)
     {
-        if (rook.islegalMove(x,y) || bishop.islegalMove(x,y)) return true;
-        else return false;
+        return rook.islegalMove(x, y) || bishop.islegalMove(x, y);
     }
 
 

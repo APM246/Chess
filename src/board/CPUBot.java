@@ -19,7 +19,7 @@ public class CPUBot
     {
         this.isWhite = isWhite;
         this.board = board;
-        CPUpieces = new ArrayList<>();
+        CPUpieces = new ArrayList<Piece>();
         populateCPUpieces();
     }
 

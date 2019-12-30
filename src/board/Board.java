@@ -120,7 +120,6 @@ public class Board
         return unchecked;
     }
 
-    // NEED REVISION FOR WHEN GAME LOOP IS USED (calling updateDisplay() when king.setPosition is called will be bad)
     public boolean checkMate(Piece king)
     {
         int originalx = king.getPosition()[0];
@@ -150,7 +149,7 @@ public class Board
     {
         for (Piece piece: pieces)
         {
-            if (Arrays.equals(piece.getPosition(),new int[] {x,y}))
+            if (Arrays.equals(piece.getPosition(),new int[] {x,y}) && piece.getisWhite() == false)
             {
                 setCurrentPiece(piece);
                 return true;

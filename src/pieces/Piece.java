@@ -70,6 +70,13 @@ public abstract class Piece
             {
                 if (islegalMove(i,j) && !containsPosition(i, j))
                 {
+                    // remove recursion from makeAImove
+                    Piece piece = boardforPieces.occupiedSquare(i, j);
+                    if (piece != null && piece.getisWhite() == isWhite)
+                    {
+                        continue;
+                    }
+
                     availableMoves.add(new int[] {i,j});
                 }
             }

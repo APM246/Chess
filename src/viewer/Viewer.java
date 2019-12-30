@@ -24,7 +24,7 @@ import board.*;
 public class Viewer implements MouseListener
 {
     private Canvas canvas1;
-    private Canvas canvas2;
+    //private Canvas canvas2;
     private Board board;
     private CPUBot bot;
     private final int width;
@@ -40,11 +40,11 @@ public class Viewer implements MouseListener
 
     public Viewer()
     {
-        canvas1 = new Canvas("Player",CANVAS_LENGTH,CANVAS_LENGTH,Color.BLACK);
+        canvas1 = new Canvas("Board",CANVAS_LENGTH,CANVAS_LENGTH,Color.BLACK);
         canvas1.setFont(new Font("Dialog",1,20));
-        canvas2 = new Canvas("Bot", CANVAS_LENGTH, CANVAS_LENGTH + 1, Color.BLACK);
-        canvas2.setFont(new Font("Serif", Font.BOLD, 18));
-        canvas2.addMouseListener(this);
+        //canvas2 = new Canvas("Bot", CANVAS_LENGTH, CANVAS_LENGTH + 1, Color.BLACK);
+        //canvas2.setFont(new Font("Serif", Font.BOLD, 18));
+        //canvas2.addMouseListener(this);
         board = new Board();
         width = BOARD_WIDTH;
         updateDisplay();
@@ -70,7 +70,7 @@ public class Viewer implements MouseListener
                 else current_colour = main_colour;
 
                 canvas1.drawRectangle(width*j,width*i,width*(j+1),width*(i+1), current_colour);
-                canvas2.drawRectangle(width*j,width*i,width*(j+1),width*(i+1), current_colour);
+                //canvas2.drawRectangle(width*j,width*i,width*(j+1),width*(i+1), current_colour);
             }
             buffer = main_colour;
             main_colour = alternate_colour;
@@ -82,8 +82,8 @@ public class Viewer implements MouseListener
         {
             canvas1.drawRectangle(0,width*m,600,width*m + 5,Color.BLACK);
             canvas1.drawRectangle(width*m,0,width*m+5,600,Color.BLACK);
-            canvas2.drawRectangle(0,width*m,600,width*m + 5,Color.BLACK);
-            canvas2.drawRectangle(width*m,0,width*m+5,600,Color.BLACK);
+            //canvas2.drawRectangle(0,width*m,600,width*m + 5,Color.BLACK);
+            //canvas2.drawRectangle(width*m,0,width*m+5,600,Color.BLACK);
         }
 
     }
@@ -99,7 +99,7 @@ public class Viewer implements MouseListener
             if (i.getisonBoard())
             {
                 canvas1.paintImage(i.getBi(), i.getPosition()[0] * width + 1, i.getPosition()[1] * width + 1, 70, 70);
-                canvas2.paintImage(i.getBi(), (7-i.getPosition()[0]) * width + 1, (7-i.getPosition()[1]) * width + 1, 70, 70);
+                //canvas2.paintImage(i.getBi(), (7-i.getPosition()[0]) * width + 1, (7-i.getPosition()[1]) * width + 1, 70, 70);
             }
         }
 
@@ -157,6 +157,8 @@ public class Viewer implements MouseListener
                 positionX = 7 - positionX;
                 positionY = 7 - positionY;
             }
+
+            movingPiece = null; // reset
             if (board.legalPiece(positionX, positionY))
             {
                 movingPiece = board.getCurrentPiece();
@@ -166,7 +168,7 @@ public class Viewer implements MouseListener
     
     public void mouseReleased(MouseEvent e)
     {
-        if (isFinished) return;
+        if (isFinished || movingPiece == null) return;
 
         if (e.getButton() == MouseEvent.BUTTON1)
         {
@@ -201,8 +203,10 @@ public class Viewer implements MouseListener
                         else return; // chosen piece is on same team, thus cannot be replaced
                     }
                     movingPiece.setPosition(positionX, positionY);
+                    updateDisplay();
                 }
-                updateDisplay();
+
+                else return;
             }
 
             // AI makes its move
@@ -240,7 +244,7 @@ public class Viewer implements MouseListener
             }
             else
             {
-                makeAImove(); // can't move to spot if occupied by member of same team so pick another piece/spot
+                makeAImove(); // can't move to spot if occupied by member of same team so pick another piece/spot (can remove)
             }
         }
 
@@ -253,6 +257,6 @@ public class Viewer implements MouseListener
     // implement game loop that calls updateDisplay() frequently
     public static void main(String[] args)
     {
-        Viewer viewer = new Viewer();
+        new Viewer();
     }
 }
