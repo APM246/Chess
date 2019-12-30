@@ -1,11 +1,15 @@
 package viewer;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Color;
 import java.awt.Font;
+import java.beans.PropertyChangeListener;
 import java.lang.System;
 import java.util.Arrays;
+import javax.swing.*;
 
 import pieces.*;
 import board.*;
@@ -32,7 +36,7 @@ public class Viewer implements MouseListener
     private final int BOARD_WIDTH = CANVAS_LENGTH/8;
 
     // WHEN GAME HAS BEEN COMPLETED
-    private boolean isFinished;
+    private static boolean isFinished;
 
     public Viewer()
     {
@@ -202,7 +206,19 @@ public class Viewer implements MouseListener
             }
 
             // AI makes its move
-          makeAImove();
+            ActionListener action = new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent)
+                {
+                    makeAImove();
+                    updateDisplay();
+                }
+            };
+
+            Timer time = new Timer(1600, action);
+            time.setRepeats(false);
+            time.start();
         }
     }
 
@@ -226,7 +242,6 @@ public class Viewer implements MouseListener
             {
                 makeAImove(); // can't move to spot if occupied by member of same team so pick another piece/spot
             }
-            updateDisplay();
         }
 
         catch (Exception ie)
@@ -238,6 +253,6 @@ public class Viewer implements MouseListener
     // implement game loop that calls updateDisplay() frequently
     public static void main(String[] args)
     {
-        new Viewer();
+        Viewer viewer = new Viewer();
     }
 }
