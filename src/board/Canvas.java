@@ -29,6 +29,7 @@ public class Canvas
         graphic.setColor(bgColour);
         graphic.fillRect(0, 0, size.width, size.height);
         graphic.setColor(Color.black);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         this.autoRepaint = true;
     }
