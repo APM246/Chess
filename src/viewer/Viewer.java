@@ -107,37 +107,31 @@ public class Viewer implements MouseListener
 
     public void updateDisplay()
     {
+        if (isFinished) return;
         displayBoard();
         displayPieces();
     }
 
-    /**
-     * ALWAYS BE AWARE OF ALIASING
-     */
-    public void mouseClicked(MouseEvent e)
+    private void checkGameOverStatus()
     {
-        if (e.getButton() == MouseEvent.BUTTON3)
+        for (Piece piece: board.getPieces())
         {
-            for (Piece piece: board.getPieces())
+            if (piece.getName() == "king")
             {
-                if (piece.getName() == "king")
+                if (board.checkMate(piece))
                 {
-                    if (board.checkMate(piece))
-                    {
-                        System.out.println("Game finished");
-
-                        canvas1.drawRectangle(0,0,CANVAS_LENGTH , CANVAS_LENGTH ,Color.WHITE);
-                        canvas1.drawString("Game finished",CANVAS_LENGTH/2, CANVAS_LENGTH/2, Color.BLUE);
-                        isFinished = true;
-                    }
+                    System.out.println("Game finished");
+                    canvas1.setFont(new Font("Dialog", 1, 40));
+                    canvas1.drawString("Game finished",CANVAS_LENGTH/2 - 50, CANVAS_LENGTH/2, Color.BLUE);
+                    isFinished = true;
                 }
             }
         }
     }
 
+    public void mouseClicked(MouseEvent e) {}
     public void mouseExited(MouseEvent mouseEvent) {}
     public void mouseEntered(MouseEvent mouseEvent) {}
-
 
     /**
      * something not right with use of movingPiece and currentPiece. Unrelated pieces just randomly moving during
@@ -209,6 +203,9 @@ public class Viewer implements MouseListener
                 else return;
             }
 
+            // End game if checkmate has been reached
+            checkGameOverStatus();
+
             // AI makes its move
             ActionListener action = new ActionListener()
             {
@@ -223,6 +220,7 @@ public class Viewer implements MouseListener
             Timer time = new Timer(1600, action);
             time.setRepeats(false);
             time.start();
+            checkGameOverStatus();
         }
     }
 

@@ -5,3 +5,4 @@ out\
 out/*
 src/.vscode/launch.json
 issues.txt
+*.png

@@ -7,6 +7,7 @@ package board;
  * and for the 7 positions surrounding it
  */
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import pieces.*;
