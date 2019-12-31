@@ -145,12 +145,16 @@ public class Board
         else return true;
     }
 
-    public boolean legalPiece(int x, int y)
+    public boolean legalPiece(int x, int y, boolean isPlayer)
     {
         for (Piece piece: pieces)
         {
-            if (Arrays.equals(piece.getPosition(),new int[] {x,y}) && piece.getisWhite() == false)
+            if (Arrays.equals(piece.getPosition(),new int[] {x,y}))
             {
+                if (isPlayer && piece.getisWhite())
+                {
+                    continue;
+                }
                 setCurrentPiece(piece);
                 return true;
             }

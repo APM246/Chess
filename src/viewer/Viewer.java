@@ -159,7 +159,7 @@ public class Viewer implements MouseListener
             }
 
             movingPiece = null; // reset
-            if (board.legalPiece(positionX, positionY))
+            if (board.legalPiece(positionX, positionY, true))
             {
                 movingPiece = board.getCurrentPiece();
             }
@@ -168,7 +168,7 @@ public class Viewer implements MouseListener
     
     public void mouseReleased(MouseEvent e)
     {
-        if (isFinished || movingPiece == null) return;
+        if (isFinished  || movingPiece == null) return;
 
         if (e.getButton() == MouseEvent.BUTTON1)
         {
@@ -192,7 +192,7 @@ public class Viewer implements MouseListener
                 }
                 if (movingPiece.islegalMove(positionX, positionY)) //board.getCurrentPiece().isLegalMove()
                 {
-                    if (board.legalPiece(positionX, positionY))
+                    if (board.legalPiece(positionX, positionY, false))
                     {
                         if (stationaryPiece.getisWhite() != movingPiece.getisWhite()) 
                         {
